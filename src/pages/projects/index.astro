@@ -1,1 +1,27 @@
-<h1>Projects</h1>
+---
+import PageIntro from '../../components/PageIntro.astro';
+import { projects } from '../../data/projects';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Projects | Engineering Portfolio" description="Engineering projects and documentation.">
+  <div class="container page-back-wrap">
+    <a class="page-back" href={base}>← Home</a>
+  </div>
+  <PageIntro title="Projects" />
+
+  <section class="projects-section section section--tight">
+    <div class="container projects-grid">
+      {
+        projects.map((project) => (
+          <a class="project-card" href={`${base}projects/${project.slug}/`}>
+            <h2>{project.title}</h2>
+            <p>{project.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+</BaseLayout>

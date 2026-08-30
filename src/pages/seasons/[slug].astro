@@ -1,0 +1,50 @@
+---
+import { seasons } from '../../data/seasons';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  return seasons.map((season) => ({
+    params: { slug: season.slug },
+    props: { season },
+  }));
+}
+
+interface Props {
+  season: (typeof seasons)[number];
+}
+
+const { season } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const detailSections = ['Overview', 'Design', 'Process'];
+---
+
+<BaseLayout title={`${season.title} | Engineering Portfolio`} description={`${season.title} season.`}>
+  <article class="project-detail">
+    <div class="container">
+      <a class="project-back" href={`${base}#ftc-seasons`}>← FTC Seasons</a>
+
+      <header class="project-detail__header">
+        <p class="project-detail__label">FTC Season · {season.status}</p>
+        <h1>{season.title}</h1>
+      </header>
+
+      <section class="project-gallery" aria-label={`${season.title} photos`}>
+        {[1, 2, 3].map((photoNumber) => (
+          <div class="project-photo-placeholder">
+            <span>Photo {photoNumber}</span>
+          </div>
+        ))}
+      </section>
+
+      <section class="project-writeup">
+        {
+          detailSections.map((section) => (
+            <section class="project-writeup__section">
+              <h2>{section}</h2>
+            </section>
+          ))
+        }
+      </section>
+    </div>
+  </article>
+</BaseLayout>

@@ -20,6 +20,8 @@ Current routes:
 
 - `/`
 - `/projects/`
+- `/projects/<project>/`
+- `/seasons/<season>/`
 - `/about/`
 - `/activities/`
 - `/resume/`

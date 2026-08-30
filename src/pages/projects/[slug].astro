@@ -1,0 +1,51 @@
+---
+import { projects } from '../../data/projects';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: (typeof projects)[number];
+}
+
+const { project } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const detailSections = ['Overview', 'Design', 'Process'];
+---
+
+<BaseLayout title={`${project.title} | Engineering Portfolio`} description={project.description}>
+  <article class="project-detail">
+    <div class="container">
+      <a class="project-back" href={`${base}projects/`}>← Projects</a>
+
+      <header class="project-detail__header">
+        <p class="project-detail__label">Project</p>
+        <h1>{project.title}</h1>
+        <p>{project.description}</p>
+      </header>
+
+      <section class="project-gallery" aria-label={`${project.title} photos`}>
+        {[1, 2, 3].map((photoNumber) => (
+          <div class="project-photo-placeholder">
+            <span>Photo {photoNumber}</span>
+          </div>
+        ))}
+      </section>
+
+      <section class="project-writeup">
+        {
+          detailSections.map((section) => (
+            <section class="project-writeup__section">
+              <h2>{section}</h2>
+            </section>
+          ))
+        }
+      </section>
+    </div>
+  </article>
+</BaseLayout>

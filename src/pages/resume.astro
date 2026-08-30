@@ -1,1 +1,11 @@
-<h1>Resume</h1>
+---
+import PageIntro from '../components/PageIntro.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Resume | Engineering Portfolio" description="Resume and experience.">
+  <div class="container page-back-wrap">
+    <a class="page-back" href={import.meta.env.BASE_URL}>← Home</a>
+  </div>
+  <PageIntro title="Resume" />
+</BaseLayout>
